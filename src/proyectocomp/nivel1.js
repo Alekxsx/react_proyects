@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom';
 import Nivel2 from './nivel2'
 import Nivel3 from './nivel3'
 import Modal from 'react-modal'; //importaciones de react y dom, importaciones de nivel 2 y 3
+import validator from 'validator';///importacion del validador
+import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props';///importacion para el logueo con facebook
 
 /////////////////////////////////////Clase del login que contiene el saludo y el boton para salir
 const Welcome = ({user, onSignOut})=> {
@@ -14,27 +16,52 @@ const Welcome = ({user, onSignOut})=> {
   )
 }
 
-/////////////////////////////////////Clase del login en donde se inserta el nombre
 class LoginForm extends React.Component {
 
-  handleSignIn(e) {
-    e.preventDefault()
+  handleSignIn2(e) {/////////////////////////////////////Clase del login en donde se inserta el nombre
+    console.log(e);
+    e.preventDefault();
     let username = this.refs.username.value
-    // this.props.onSignIn(username, password)
-    var usuario = localStorage.setItem("usuario", username);
-    this.props.onSignIn(username)
 
+    if (validator.isLength(username,{min:4,max:40})) {///se usa un validador para que solo acepte el usuario si contiene mas de 4 caracteres
+      var usuario = localStorage.setItem("usuario", username);
+      this.props.onSignIn(username)
+    }
+    else {
+      alert("Introduce un usuario de mas de 4 caracteres")//alerta en caso de que no cumpla el requisito
+    }
+  }
+
+  handleSignIn(e) {////////////////////////////////////Clase del login en que se toma el nombre de facebook
+    console.log(e.name);
+    let username = e.name
+    if (validator.isLength(username,{min:4,max:40})) {///se usa un validador para que solo acepte el usuario si contiene mas de 4 caracteres
+      var usuario = localStorage.setItem("usuario", username);
+      this.props.onSignIn(username)
+    }
+    else {
+      alert("Introduce un usuario de mas de 4 caracteres")//alerta en caso de que no cumpla el requisito
+    }
   }
 
   render() {
     return (
       <div className="containerinicio" >
-      <form onSubmit={this.handleSignIn.bind(this)}>
+      <form onSubmit={this.handleSignIn2.bind(this)}>
         <h3>Ingresa</h3>
         <input type="text" ref="username" placeholder="ingresa tu usuario" />
         <input type="submit" value="Logueo" />
       </form>
       <div>
+
+      <FacebookLogin
+        appId="200243673929002"
+        autoLoad={false}
+        callback={this.handleSignIn.bind(this)}
+        render={renderProps => (
+          <button className="big-button" onClick={renderProps.onClick}>Conectarse con facebook</button>
+        )}
+      />
 
       </div>
       </div>
@@ -63,16 +90,16 @@ var opera= new Array('+','-','*','/');    //arreglo de 4 valores en donde si sal
 const randomop = Math.floor(Math.random() * opera.length)+1;
 console.log(randomop)
 if (randomop==1) {
-resultado= operacion1+operacion2;
+resultado= operacion1+operacion2;//sumar
 }
 if (randomop==2) {
-resultado= operacion1-operacion2;
+resultado= operacion1-operacion2;//resta
 }
 if (randomop==3) {
-resultado= operacion1*operacion2;
+resultado= operacion1*operacion2;//multiplicacion
 }
 if (randomop==4) {
-resultado= (operacion1/(operacion2+10)).toFixed(2);
+resultado= (operacion1/(operacion2+10)).toFixed(2);//division
 }
 ////////////////////////////////clase principal
 class App extends React.Component {
@@ -93,7 +120,6 @@ class App extends React.Component {
       modalIsOpen:false,
       usuarioant:'',
     }
-
         this.handleres=this.handleres.bind(this);
         this.handlesum=this.handlesum.bind(this);
         this.handlemulti=this.handlemulti.bind(this);
@@ -157,13 +183,11 @@ class App extends React.Component {
              subtitle:'Opcion correcta'})
 /////////////////////////////////////////////////////
 
-
            }
            if (resultado!==res) {///////si el resultado no es igual a la variable anterior res, el subtitulo se cambia a opcion incorrecta y se resta 10 puntos
              this.setState({
              subtitle:'Opcion incorrecta'})
              this.setState({puntaje: this.state.puntaje-10})
-
            }
      }
 
@@ -218,7 +242,6 @@ class App extends React.Component {
                //se guarda el valor puntaje del state en un valor local
                localStorage.setItem("puntaje",this.state.puntaje);
 
-
              };
        }
 
@@ -265,7 +288,6 @@ if (this.state.usuarioant!=usuariol) {
     document.getElementById("nivel3").style.display = "none";
 
     this.setState({usuarioant: this.state.user.username})
-
     this.setState({user: null})
   }
 

@@ -16,10 +16,8 @@ export default class Nivel2 extends React.Component{////////////clase principal 
       nivel:'siguiente nivel',
       puntaje:0,
     }
-
     var opera= new Array('>','<');///se crea un arreglo de 2 valores para decidir si se va usar mayor que o menor que aleatoriamente
     const randomop = Math.floor(Math.random() * opera.length)+1;
-
     this.handlemayor=this.handlemayor.bind(this);
     this.handlemenor=this.handlemenor.bind(this);
     this.handlenivel=this.handlenivel.bind(this);

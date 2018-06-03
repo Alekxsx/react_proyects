@@ -107,7 +107,6 @@ export default class Nivel3 extends React.Component{
             this.setState({
             nivel:'Juego terminado'})//////////termina el juego
           }
-
           ///////////se reinicia el subtitulo
           this.setState({
           subtitle:'Selecciona la opcion logica'})
@@ -115,9 +114,7 @@ export default class Nivel3 extends React.Component{
           this.setState({puntaje: this.state.puntaje+10})
           ////se guarda el puntaje localmente
           localStorage.setItem("puntaje",this.state.puntaje);
-
         };
-
        }
 
 render(){
@@ -140,16 +137,14 @@ render(){
     <img width="200" height="100" src="https://images.emojiterra.com/mozilla/512px/1f3c6.png"></img>
     </div>
     </div>
-    <button className="button" onClick={this.closeModal}>Cerrar</button>
+    <button className="big-button" onClick={this.closeModal}>Cerrar</button>
     <form>
-
     </form>
     </Modal>
-</div>
-
+    </div>
+    
     <div id = "nivel3" className="container">
     <h1 className="header">{this.state.Title} {this.state.nivell}</h1>
-
     <div id = "imagen1">
     <img width="200" height="100" src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/3_stars.svg/1280px-3_stars.svg.png"></img>
     </div>
@@ -159,29 +154,23 @@ render(){
     <div id = "imagen3">
     <img width="200" height="100" src="https://qph.fs.quoracdn.net/main-qimg-dc71b5368d1f0a6f5cc3877699f7c8c8"></img>
     </div>
-
     <p className="header__subtitle" >{this.state.subtitle}</p>
     <p id='op1'>{this.state.operacion1}</p>
     <p id='op2'>{this.state.operacion2}</p>
     <p id="puntajeN4">Puntaje: {this.state.puntaje}</p>
     <p id="puntajeN3">Puntaje Final {this.state.puntaje+this.state.puntaje+this.state.puntaje+this.state.puntaje}</p>
-  <div className="containerbutton">
+    <div className="containerbutton">
     <button id="boton1" className="button" onClick={this.handleop1}> {this.state.boton1}</button>
-
-
     <button className="button"> 5/4</button>
-        <button id="boton2" className="button" onClick={this.handleop2}> {this.state.boton2}</button>
+    <button id="boton2" className="button" onClick={this.handleop2}> {this.state.boton2}</button>
     <button className="button"> 6/6</button>
     <button className="button"> 1/6</button>
-        <button id="boton3" className="button" onClick={this.handleop3}> {this.state.boton3}</button>
+    <button id="boton3" className="button" onClick={this.handleop3}> {this.state.boton3}</button>
     <button className="button"> 9/3</button>
-
-  </div>
+    </div>
     <button className="big-button" onClick={this.handlenivel} id='ocultar'> {this.state.nivel}</button>
     </div>
-
     </div>
-
   )
 };
 }
